@@ -1,0 +1,7 @@
+{
+  "name": "logmover",
+  "version": "1.0.0",
+  "dependencies": {
+    "clipboardy": "^2.1.0"
+  }
+}
