@@ -1,7 +1,7 @@
 const clipboardy=require("clipboardy");
 const fs=require("fs");
 
-const logfile="C:/Users/khang/Desktop/logmover/testlog.log";
+const logfile="testlog.log";
 
 if (!fs.existsSync(logfile))
 {
