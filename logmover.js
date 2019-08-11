@@ -23,21 +23,39 @@ if (!fs.existsSync(moveToFolder))
     return;
 }
 
-var clipboard=clipboardy.readSync().split("\n"); //clipboard text converted into list with new lines
+var clipboardText=clipboardy.readSync();
+var clipboard=clipboardText.split("\n"); //clipboard text converted into list with new lines
+
+var targetVideos=[]; //list of video file names to move
+var discrepencyDetected=0;
 
 var match;
-var targetVideos=[]; //list of video file names to move
 var logVidDetect=/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (.*\.mkv)/; //regex the file name of a video from a log file line
 for (var x=0,l=clipboard.length;x<l;x++)
 {
+    //skip empty lines
+    if (!clipboard[x].trim())
+    {
+        continue;
+    }
+
+    //grab the video file name out of the log line
     match=clipboard[x].match(logVidDetect);
+    //if it managed to grab it, add it to list of video files
     if (match)
     {
         targetVideos.push(match[1]);
     }
+
+    else
+    {
+        //otherwise there's an incorrect line in the input
+        discrepencyDetected=1;
+    }
 }
 
-if (targetVideos.length!=clipboard.length)
+//dont do anything if theres a problem
+if (discrepencyDetected)
 {
     console.log("clipboard discrepency detected");
     console.log("clipboard:");
@@ -47,5 +65,13 @@ if (targetVideos.length!=clipboard.length)
     console.log(targetVideos);
     return;
 }
+
+//make sure theres a new line at the end of the clipboard text before writing it into the file
+if (clipboardText[clipboardText.length-1]!="\n")
+{
+    clipboardText+="\n";
+}
+
+fs.appendFile(logfile,clipboardText,()=>{});
 
 console.log(targetVideos);
