@@ -4,10 +4,10 @@ const clipboardy=require("clipboardy");
 const fs=require("fs");
 const chalk=require("chalk");
 
-const configfile="config.json";
+const configfile=`${__dirname}/config.json`;
 
 //dont actually config these, there should be fields in the config.json that
-//these will be set to.
+//these will be set to. all paths should be relative to this js file.
 var logfile="testing/testlog.log"; //log file to write to
 var targetFolder="../../videos/vids"; //folder to find videos to move
 var moveToFolder="../../videos/completed"; //folder to move videos to
@@ -20,9 +20,9 @@ if (!fs.existsSync(configfile))
 
 var config=JSON.parse(fs.readFileSync(configfile));
 
-logfile=config.logfile;
-targetFolder=config.targetFolder;
-moveToFolder=config.moveToFolder;
+logfile=`${__dirname}/${config.logfile}`;
+targetFolder=`${__dirname}/${config.targetFolder}`;
+moveToFolder=`${__dirname}/${config.moveToFolder}`;
 
 if (!fs.existsSync(logfile))
 {
