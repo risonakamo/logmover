@@ -1,0 +1,5 @@
+{
+    "logfile":"testing/testlog.log",
+    "targetFolder":"../../videos/vids",
+    "moveToFolder":"../../videos/completed"
+}

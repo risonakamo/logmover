@@ -4,9 +4,25 @@ const clipboardy=require("clipboardy");
 const fs=require("fs");
 const chalk=require("chalk");
 
-const logfile="testing/testlog.log";
-const targetFolder="../../videos/vids";
-const moveToFolder="../../videos/completed";
+const configfile="config.json";
+
+//dont actually config these, there should be fields in the config.json that
+//these will be set to.
+var logfile="testing/testlog.log"; //log file to write to
+var targetFolder="../../videos/vids"; //folder to find videos to move
+var moveToFolder="../../videos/completed"; //folder to move videos to
+
+if (!fs.existsSync(configfile))
+{
+    console.log("config file missing");
+    return;
+}
+
+var config=JSON.parse(fs.readFileSync(configfile));
+
+logfile=config.logfile;
+targetFolder=config.targetFolder;
+moveToFolder=config.moveToFolder;
 
 if (!fs.existsSync(logfile))
 {
