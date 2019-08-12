@@ -1,5 +1,6 @@
 const clipboardy=require("clipboardy");
 const fs=require("fs");
+const colors=require("colors");
 
 const logfile="testlog.log";
 const targetFolder="../videos/vids";
@@ -57,13 +58,43 @@ for (var x=0,l=clipboard.length;x<l;x++)
 //dont do anything if theres a problem
 if (discrepencyDetected)
 {
-    console.log("clipboard discrepency detected");
-    console.log("clipboard:");
+    console.log("clipboard discrepency detected".red);
+    console.log("clipboard:".red);
     console.log(clipboard);
     console.log();
-    console.log("target videos:");
+    console.log("target videos:".cyan);
     console.log(targetVideos);
     return;
+}
+
+//just check if all the videos to move exist, abort if even one of them are
+//missing
+var videoPath;
+for (var x=0,l=targetVideos.length;x<l;x++)
+{
+    videoPath=`${targetFolder}/${targetVideos[x]}`;
+    if (!fs.existsSync(videoPath))
+    {
+        console.log(`couldn't find ${colors.yellow(targetVideos[x])}.`.red);
+        discrepencyDetected=1;
+    }
+}
+
+//quit if coulndt find something
+if (discrepencyDetected)
+{
+    console.log("clipboard:".red);
+    console.log(clipboardText);
+    console.log(`cancelling.`.red);
+    return;
+}
+
+//if all target videos are there, move them
+for (var x=0,l=targetVideos.length;x<l;x++)
+{
+    videoPath=`${targetFolder}/${targetVideos[x]}`;
+    fs.rename(videoPath,`${moveToFolder}/${targetVideos[x]}`,()=>{});
+    console.log(colors.green(`${colors.yellow(targetVideos[x])} moved.`));
 }
 
 //make sure theres a new line at the end of the clipboard text before writing it into the file
@@ -73,5 +104,3 @@ if (clipboardText[clipboardText.length-1]!="\n")
 }
 
 fs.appendFile(logfile,clipboardText,()=>{});
-
-console.log(targetVideos);
