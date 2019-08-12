@@ -24,7 +24,17 @@ if (!fs.existsSync(moveToFolder))
     return;
 }
 
-var clipboardText=clipboardy.readSync();
+try
+{
+    var clipboardText=clipboardy.readSync();
+}
+
+catch
+{
+    console.log("clipboard error".red);
+    return;
+}
+
 var clipboard=clipboardText.split("\n"); //clipboard text converted into list with new lines
 
 var targetVideos=[]; //list of video file names to move
@@ -60,7 +70,7 @@ if (discrepencyDetected)
 {
     console.log("clipboard discrepency detected".red);
     console.log("clipboard:".red);
-    console.log(clipboard);
+    console.log(clipboardText);
     console.log();
     console.log("target videos:".cyan);
     console.log(targetVideos);
