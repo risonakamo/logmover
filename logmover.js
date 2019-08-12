@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const clipboardy=require("clipboardy");
 const fs=require("fs");
 const colors=require("colors");
