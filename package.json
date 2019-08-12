@@ -2,8 +2,8 @@
   "name": "logmover",
   "version": "1.0.0",
   "dependencies": {
-    "clipboardy": "^2.1.0",
-    "colors": "^1.3.3"
+    "chalk": "^2.4.2",
+    "clipboardy": "^2.1.0"
   },
   "bin": {
     "logmove": "logmover.js"

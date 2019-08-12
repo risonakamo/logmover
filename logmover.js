@@ -2,11 +2,11 @@
 
 const clipboardy=require("clipboardy");
 const fs=require("fs");
-const colors=require("colors");
+const chalk=require("chalk");
 
-const logfile="testlog.log";
-const targetFolder="../videos/vids";
-const moveToFolder="../videos/completed";
+const logfile="testing/testlog.log";
+const targetFolder="../../videos/vids";
+const moveToFolder="../../videos/completed";
 
 if (!fs.existsSync(logfile))
 {
@@ -70,11 +70,11 @@ for (var x=0,l=clipboard.length;x<l;x++)
 //dont do anything if theres a problem
 if (discrepencyDetected)
 {
-    console.log("clipboard discrepency detected".red);
-    console.log("clipboard:".red);
+    console.log(chalk.red("clipboard discrepency detected"));
+    console.log(chalk.red("clipboard:"));
     console.log(clipboardText);
     console.log();
-    console.log("target videos:".cyan);
+    console.log(chalk.cyan("target videos:"));
     console.log(targetVideos);
     return;
 }
@@ -87,7 +87,7 @@ for (var x=0,l=targetVideos.length;x<l;x++)
     videoPath=`${targetFolder}/${targetVideos[x]}`;
     if (!fs.existsSync(videoPath))
     {
-        console.log(`couldn't find ${colors.yellow(targetVideos[x])}.`.red);
+        console.log(chalk.red(`couldn't find ${chalk.yellow(targetVideos[x])}.`));
         discrepencyDetected=1;
     }
 }
@@ -95,9 +95,9 @@ for (var x=0,l=targetVideos.length;x<l;x++)
 //quit if coulndt find something
 if (discrepencyDetected)
 {
-    console.log("clipboard:".red);
+    console.log(chalk.red("clipboard:"));
     console.log(clipboardText);
-    console.log(`cancelling.`.red);
+    console.log(chalk.red(`cancelling.`));
     return;
 }
 
@@ -106,7 +106,7 @@ for (var x=0,l=targetVideos.length;x<l;x++)
 {
     videoPath=`${targetFolder}/${targetVideos[x]}`;
     fs.rename(videoPath,`${moveToFolder}/${targetVideos[x]}`,()=>{});
-    console.log(colors.green(`${colors.yellow(targetVideos[x])} moved.`));
+    console.log(chalk.green(`${chalk.yellow(targetVideos[x])} moved.`));
 }
 
 //make sure theres a new line at the end of the clipboard text before writing it into the file
