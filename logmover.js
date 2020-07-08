@@ -59,7 +59,7 @@ var targetVideos=[]; //list of video file names to move
 var discrepencyDetected=0;
 
 var match;
-var logVidDetect=/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (.*\.mkv)/; //regex the file name of a video from a log file line
+var logVidDetect=/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (.*\.(mkv|mp4))/; //regex the file name of a video from a log file line
 for (var x=0,l=clipboard.length;x<l;x++)
 {
     //skip empty lines
