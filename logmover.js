@@ -3,6 +3,7 @@
 const clipboardy=require("clipboardy");
 const fs=require("fs");
 const chalk=require("chalk");
+const prependFile=require("prepend-file");
 
 const configfile=`${__dirname}/config.json`;
 
@@ -131,4 +132,4 @@ if (clipboardText[clipboardText.length-1]!="\n")
     clipboardText+="\n";
 }
 
-fs.appendFile(logfile,clipboardText,()=>{});
+prependFile(logfile,clipboardText);

@@ -3,7 +3,8 @@
   "version": "1.1.2",
   "dependencies": {
     "chalk": "^2.4.2",
-    "clipboardy": "^2.1.0"
+    "clipboardy": "^2.1.0",
+    "prepend-file": "^2.0.0"
   },
   "bin": {
     "logmove": "logmover.js"
